@@ -8,21 +8,33 @@ interface Balance {
 
 class TransactionsRepository {
   private transactions: Transaction[];
+  private balance: Balance;
 
   constructor() {
     this.transactions = [];
+    this.balance = {
+      income: 0,
+      outcome: 0,
+      total: 0
+    };
   }
 
   public all(): Transaction[] {
-    // TODO
+    return this.transactions
   }
 
   public getBalance(): Balance {
-    // TODO
+    return this.balance
   }
 
-  public create(): Transaction {
-    // TODO
+  public setBalance(newBalance: Balance): Balance {
+    return this.balance = newBalance;
+  }
+
+  public create(transactionProps: Omit<Transaction, 'id'>): Transaction {
+    const transaction = new Transaction(transactionProps)
+    this.transactions.push(transaction)
+    return transaction
   }
 }
 
